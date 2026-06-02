@@ -228,7 +228,7 @@ public class Hospital_System {
                     String pname = sc.nextLine();
 
                     patient = new Patient(pid, pname);
-                    System.out.println("Patient Added Successfully!");
+                    System.out.println("Patient Registered Successfully!");
                     break;
 
                 case 2:
@@ -252,7 +252,7 @@ public class Hospital_System {
                     String spec = sc.nextLine();
 
                     doctor = new Doctor(did, dname, spec);
-                    System.out.println("Doctor Added Successfully!");
+                    System.out.println("Doctor Details Added!");
                     break;
 
                 case 4:
@@ -275,7 +275,7 @@ public class Hospital_System {
                         String date = sc.nextLine();
 
                         appointment = new Appointment(aid, patient, doctor, date);
-                        System.out.println("Appointment Booked Successfully!");
+                        System.out.println("Appointment Created Successfully!");
 
                     } else {
                         System.out.println("Please Add Patient and Doctor First!");
@@ -344,12 +344,12 @@ public class Hospital_System {
 
                 case 10:
                     // Exit
-                    System.out.println("Exiting System...");
+                    System.out.println("Thank You ...");
                     System.out.println("Thank you for using Hospital Management System!");
                     break;
 
                 default:
-                    System.out.println("Invalid Choice! Please enter between 1-10.");
+                    System.out.println("Wrong Choice Please Try Again! Please enter between 1-10.");
             }
 
             System.out.println("--------------------------------");
