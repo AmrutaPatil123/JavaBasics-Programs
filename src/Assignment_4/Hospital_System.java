@@ -2,195 +2,157 @@ package Assignment_4;
 
 import java.util.Scanner;
 
-
+// Interface
 interface Service {
-    void serviceDetails();  // Abstract method
+    void serviceDetails();
 }
 
-
-
+// Abstract Class
 abstract class Person {
 
-    private int id;
-    private String name;
+    int personId;
+    String personName;
 
-    // Constructor - initializes id and name
-    Person(int id, String name) {
-        this.id = id;
-        this.name = name;
+    Person(int personId, String personName) {
+        this.personId = personId;
+        this.personName = personName;
     }
 
-    // Getter Methods - Encapsulation
-    public int getId() { return id; }
-    public String getName() { return name; }
+    public int getPersonId() { return personId; }
+    public String getPersonName() { return personName; }
 
-    // Setter Methods - Encapsulation
-    public void setId(int id) { this.id = id; }
-    public void setName(String name) { this.name = name; }
-
-    abstract void display();
+    abstract void show();
 }
 
-
-
+// Patient Class - Inheritance
 class Patient extends Person {
 
-
-    Patient(int patientId, String patientName) {
-        super(patientId, patientName);  // Calling Parent Constructor
+    Patient(int personId, String personName) {
+        super(personId, personName);
     }
-
 
     @Override
-    void display() {
-        System.out.println("\nPatient ID   : " + getId());
-        System.out.println("Patient Name : " + getName());
+    void show() {
+        System.out.println("\nPatient ID   : " + personId);
+        System.out.println("Patient Name : " + personName);
     }
-
 
     void displayPatient() {
-        display();
+        show();
     }
 }
 
-
+// Doctor Class - Inheritance
 class Doctor extends Person {
 
-    private String specialization;
+    String department;
 
-
-    Doctor(int doctorId, String doctorName, String specialization) {
-        super(doctorId, doctorName);  // Calling Parent Constructor
-        this.specialization = specialization;
+    Doctor(int personId, String personName, String department) {
+        super(personId, personName);
+        this.department = department;
     }
-
-
-    public String getSpecialization() { return specialization; }
-    public void setSpecialization(String specialization) { this.specialization = specialization; }
-
 
     @Override
-    void display() {
-        System.out.println("\nDoctor ID       : " + getId());
-        System.out.println("Doctor Name     : " + getName());
-        System.out.println("Specialization  : " + specialization);
+    void show() {
+        System.out.println("\nDoctor ID      : " + personId);
+        System.out.println("Doctor Name    : " + personName);
+        System.out.println("Department     : " + department);
     }
-
 
     void displayDoctor() {
-        display();
+        show();
     }
 }
 
-
-
+// Appointment Class
 class Appointment {
 
-    // Encapsulation - private fields
-    private int appointmentId;
-    private Patient patient;
-    private Doctor doctor;
-    private String date;
+    int appointID;
+    Patient patient;
+    Doctor doctor;
+    String visitDate;
 
-
-    Appointment(int appointmentId, Patient patient, Doctor doctor, String date) {
-        this.appointmentId = appointmentId;
+    Appointment(int appointID, Patient patient, Doctor doctor, String visitDate) {
+        this.appointID = appointID;
         this.patient = patient;
         this.doctor = doctor;
-        this.date = date;
+        this.visitDate = visitDate;
     }
-
-
-    public int getAppointmentId() { return appointmentId; }
-    public Patient getPatient() { return patient; }
-    public Doctor getDoctor() { return doctor; }
-    public String getDate() { return date; }
-
 
     void displayAppointment() {
-        System.out.println("\nAppointment ID : " + appointmentId);
-        System.out.println("Patient Name   : " + patient.getName());
-        System.out.println("Doctor Name    : " + doctor.getName());
-        System.out.println("Date           : " + date);
+        System.out.println("\nAppointment ID : " + appointID);
+        System.out.println("Patient Name   : " + patient.getPersonName());
+        System.out.println("Doctor Name    : " + doctor.getPersonName());
+        System.out.println("Visit Date     : " + visitDate);
     }
 }
 
-
+// Bill Class - Method Overloading
 class Bill {
 
-    private int billId;
-    private Patient patient;
-    private double amount;
-    private double medicineAmount;
+    int invoiceId;
+    Patient patient;
+    double fees;
+    double medFees;
 
-
-    Bill(int billId, Patient patient, double amount) {
-        this.billId = billId;
+    // Constructor 1 - Method Overloading
+    Bill(int invoiceId, Patient patient, double fees) {
+        this.invoiceId = invoiceId;
         this.patient = patient;
-        this.amount = amount;
-        this.medicineAmount = 0;
+        this.fees = fees;
+        this.medFees = 0;
     }
 
-
-    Bill(int billId, Patient patient, double amount, double medicineAmount) {
-        this.billId = billId;
+    // Constructor 2 - Method Overloading
+    Bill(int invoiceId, Patient patient, double fees, double medFees) {
+        this.invoiceId = invoiceId;
         this.patient = patient;
-        this.amount = amount;
-        this.medicineAmount = medicineAmount;
+        this.fees = fees;
+        this.medFees = medFees;
     }
-
-
-    public int getBillId() { return billId; }
-    public double getAmount() { return amount; }
-    public double getMedicineAmount() { return medicineAmount; }
-
 
     void generateBill() {
-        double totalAmount = amount + medicineAmount;
-        System.out.println("\n========== BILL ==========");
-        System.out.println("Bill ID          : " + billId);
-        System.out.println("Patient Name     : " + patient.getName());
-        System.out.println("Consultation Fee : Rs." + amount);
-        if (medicineAmount > 0) {
-            System.out.println("Medicine Amount  : Rs." + medicineAmount);
+        double totalFees = fees + medFees;
+        System.out.println("\n========== INVOICE ==========");
+        System.out.println("Invoice ID       : " + invoiceId);
+        System.out.println("Patient Name     : " + patient.getPersonName());
+        System.out.println("Doctor Fees      : Rs." + fees);
+        if (medFees > 0) {
+            System.out.println("Medicine Fees    : Rs." + medFees);
         }
-        System.out.println("--------------------------");
-        System.out.println("Total Amount     : Rs." + totalAmount);
-        System.out.println("==========================");
+        System.out.println("-----------------------------");
+        System.out.println("Total Fees       : Rs." + totalFees);
+        System.out.println("=============================");
     }
 }
 
-
-
+// Pharmacy Class - Implements Interface
 class Pharmacy implements Service {
-
 
     @Override
     public void serviceDetails() {
-        System.out.println("\nPharmacy Service Available");
+        System.out.println("\nPharmacy Counter Ready");
         System.out.println("Medicines Provided Successfully");
     }
 }
 
-
+// Lab Class - Implements Interface
 class Lab implements Service {
-
 
     @Override
     public void serviceDetails() {
         System.out.println("\nLab Test Booked Successfully");
-        System.out.println("Lab Test Status : In Progress");
+        System.out.println("Lab Test Status : Processing");
     }
 }
 
-
+// Main Class
 public class Hospital_System {
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner myScanner = new Scanner(System.in);
 
-        // Object references - initially null
         Patient patient = null;
         Doctor doctor = null;
         Appointment appointment = null;
@@ -198,7 +160,6 @@ public class Hospital_System {
         int choice;
 
         do {
-            // Display Menu
             System.out.println("\n===== HOSPITAL MANAGEMENT SYSTEM =====");
             System.out.println("1.  Add Patient");
             System.out.println("2.  View Patient");
@@ -213,97 +174,75 @@ public class Hospital_System {
             System.out.println("=======================================");
             System.out.print("Enter Choice: ");
 
-            choice = sc.nextInt();
+            choice = myScanner.nextInt();
             System.out.println("--------------------------------");
 
             switch (choice) {
 
                 case 1:
-
-                    System.out.print("Enter Patient ID: ");
-                    int pid = sc.nextInt();
-                    sc.nextLine();
-
-                    System.out.print("Enter Patient Name: ");
-                    String pname = sc.nextLine();
-
-                    patient = new Patient(pid, pname);
+                    System.out.print("Patient ID Number: ");
+                    int patientID = myScanner.nextInt();
+                    myScanner.nextLine();
+                    System.out.print("Patient Full Name: ");
+                    String patientName = myScanner.nextLine();
+                    patient = new Patient(patientID, patientName);
                     System.out.println("Patient Registered Successfully!");
                     break;
 
                 case 2:
-
                     if (patient != null)
                         patient.displayPatient();
                     else
-                        System.out.println("No Patient Record Found!");
+                        System.out.println("Patient Not Found!");
                     break;
 
                 case 3:
-
-                    System.out.print("Enter Doctor ID: ");
-                    int did = sc.nextInt();
-                    sc.nextLine(); //
-
-                    System.out.print("Enter Doctor Name: ");
-                    String dname = sc.nextLine();
-
-                    System.out.print("Enter Specialization: ");
-                    String spec = sc.nextLine();
-
-                    doctor = new Doctor(did, dname, spec);
-                    System.out.println("Doctor Details Added!");
+                    System.out.print("Doctor ID Number: ");
+                    int doctorID = myScanner.nextInt();
+                    myScanner.nextLine();
+                    System.out.print("Doctor Full Name: ");
+                    String doctorName = myScanner.nextLine();
+                    System.out.print("Enter Department: ");
+                    String dept = myScanner.nextLine();
+                    doctor = new Doctor(doctorID, doctorName, dept);
+                    System.out.println("Doctor Registered Successfully!");
                     break;
 
                 case 4:
-
                     if (doctor != null)
                         doctor.displayDoctor();
                     else
-                        System.out.println("No Doctor Record Found!");
+                        System.out.println("Doctor Not Found!");
                     break;
 
                 case 5:
-
                     if (patient != null && doctor != null) {
-
-                        System.out.print("Enter Appointment ID: ");
-                        int aid = sc.nextInt();
-                        sc.nextLine();
-
-                        System.out.print("Enter Appointment Date (DD/MM/YYYY): ");
-                        String date = sc.nextLine();
-
-                        appointment = new Appointment(aid, patient, doctor, date);
-                        System.out.println("Appointment Created Successfully!");
-
+                        System.out.print("Appointment ID: ");
+                        int appointID = myScanner.nextInt();
+                        myScanner.nextLine();
+                        System.out.print("Visit Date (DD/MM/YYYY): ");
+                        String visitDate = myScanner.nextLine();
+                        appointment = new Appointment(appointID, patient, doctor, visitDate);
+                        System.out.println("Appointment Confirmed Successfully!");
                     } else {
-                        System.out.println("Please Add Patient and Doctor First!");
+                        System.out.println("Add Patient and Doctor First!");
                     }
                     break;
 
                 case 6:
-
                     if (patient != null) {
-
-                        System.out.print("Enter Bill ID: ");
-                        int bid = sc.nextInt();
-
-                        System.out.print("Enter Consultation Fee: ");
-                        double amount = sc.nextDouble();
-
-
-                        Bill bill = new Bill(bid, patient, amount);
+                        System.out.print("Invoice ID: ");
+                        int invoiceId = myScanner.nextInt();
+                        System.out.print("Enter Doctor Fees: ");
+                        double fees = myScanner.nextDouble();
+                        Bill bill = new Bill(invoiceId, patient, fees);
                         bill.generateBill();
-                        System.out.println("Total Hospital Bill: " + amount);
-
                     } else {
-                        System.out.println("Patient Record Not Found!");
+                        System.out.println("Patient Not Found!");
                     }
                     break;
 
                 case 7:
-
                     if (appointment != null) {
                         System.out.println("\nConsultation Completed Successfully");
                         appointment.displayAppointment();
@@ -313,52 +252,38 @@ public class Hospital_System {
                     break;
 
                 case 8:
-
                     if (patient != null) {
-
-                        System.out.print("Enter Bill ID: ");
-                        int bid = sc.nextInt();
-
-                        System.out.print("Enter Medicine Bill Amount: ");
-                        double medicineAmount = sc.nextDouble();
-
-
+                        System.out.print("Invoice ID: ");
+                        int invoiceId = myScanner.nextInt();
+                        System.out.print("Medicine Fees: ");
+                        double medFees = myScanner.nextDouble();
                         Service pharmacy = new Pharmacy();
                         pharmacy.serviceDetails();
-
-
-                        Bill medicineBill = new Bill(bid, patient, 0, medicineAmount);
-                        System.out.println("Medicine Bill Added Successfully");
-                        System.out.println("Medicine Amount: Rs." + medicineAmount);
-
+                        Bill medicineBill = new Bill(invoiceId, patient, 0, medFees);
+                        System.out.println("Medicine Bill Added!");
+                        System.out.println("Medicine Fees: Rs." + medFees);
                     } else {
-                        System.out.println("Patient Record Not Found!");
+                        System.out.println("Patient Not Found!");
                     }
                     break;
 
                 case 9:
-
                     Service lab = new Lab();
                     lab.serviceDetails();
                     break;
 
                 case 10:
-                    // Exit
-                    System.out.println("Thank You ...");
-                    System.out.println("Thank you for using Hospital Management System!");
+                    System.out.println("Goodbye! Stay Healthy!");
                     break;
 
                 default:
-                    System.out.println("Wrong Choice Please Try Again! Please enter between 1-10.");
+                    System.out.println("Wrong Choice! Enter 1 to 10 only!");
             }
 
             System.out.println("--------------------------------");
 
         } while (choice != 10);
 
-        sc.close(); // Close Scanner
+        myScanner.close();
     }
 }
-
-
-
